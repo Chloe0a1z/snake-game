@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        header {
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 36px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #333;
+            color: #fff;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .champion {
+            background-color: #ffd700;
+            font-weight: bold;
+        }
+
+        .champion td:first-child::before {
+            font-family: "Font Awesome 5 Free";
+            content: "\f51c"; /* Crown icon */
+            font-weight: 900;
+            margin-right: 5px;
+            color: #ffa500;
+        }
+
+        .second-place td:first-child::before {
+            font-family: "Font Awesome 5 Free";
+            content: "\f51e"; /* Medal icon */
+            font-weight: 400;
+            margin-right: 5px;
+            color: #c0c0c0;
+        }
+
+        .back-to-game button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-to-game button:hover {
+            background-color: #555;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchLeaderboard();
+
+            function fetchLeaderboard() {
+                fetch('http://localhost/leaderboard.php')
+                    .then(response => response.text())
+                    .then(data => {
+                        document.querySelector('tbody').innerHTML = data;
+                    })
+                    .catch(error => {
+                        alert('Error fetching leaderboard: ' + error);
+                    });
+            }
+        });
+
+        function backToGame() {
+            window.location.href = 'index.html';
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Leaderboard</h1>
+        </header>
+        <div class="leaderboard-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Player Name</th>
+                        <th>Score</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Leaderboard data will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+        <div class="back-to-game">
+            <button onclick="backToGame()">Back to Game</button>
+        </div>
+    </div>
+</body>
+</html>
+
+
